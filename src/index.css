@@ -1,0 +1,70 @@
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+nav {
+  padding: 0 3rem;
+}
+
+.content {
+  min-height: calc(100vh - 70px - 64px);
+  width: 85%;
+}
+
+.card-content {
+  margin:  0.5rem 2.5rem 2.5rem 2.5rem !important;
+  padding: 0 !important;
+}
+
+.card-title {
+  margin: 1rem 1rem 0rem 2.5rem !important;
+  padding: 0 !important;
+  width: 70%;
+}
+
+.card {
+  width: 18rem;
+  margin: 0.25rem;
+}
+
+.movies {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.search, .not-found {
+  margin: 0 6rem 0 6rem;
+}
+
+.btn-search {
+  position: absolute;
+  top: 0.5rem;
+  right: 0;
+}
+
+.preloader {
+  max-width: 75%;
+  margin: 2rem auto;
+}
+
+.addSelectoin {
+  display: flex;
+  flex-direction: row;
+  min-width: 20rem;
+}
+
+.radio {
+  width: 6rem;
+}
+
