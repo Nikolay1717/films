@@ -18,7 +18,7 @@ export default class App extends React.Component {
 
   updateFilmList = (searchText, searchType) => {
     this.setState({ isLoading: true });
-    let resource = `http://www.omdbapi.com/?apikey=${API_KEY}&s=${searchText}`;
+    let resource = `https://www.omdbapi.com/?apikey=${API_KEY}&s=${searchText}`;
     if (searchType && searchType !=='all') {
       resource = resource + `&type=${searchType}`;
     }
@@ -32,7 +32,11 @@ export default class App extends React.Component {
             this.setState({ movies: [], isLoading: false })
           };
         }
-        );
+        )
+        .catch((err) => {
+          console.error(err);
+          this.setState({ movies: [], isLoading: false });
+        });
     } else {
       this.setState({ movies: [], isLoading: false })
     }
