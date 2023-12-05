@@ -47,7 +47,7 @@ export default class App extends React.Component {
       <Header />
       <Main
         movies={this.state.movies}
-        cb={this.updateFilmList}
+        updateFilmList={this.updateFilmList}
         isLoading={this.state.isLoading}
       />
       <Footer />

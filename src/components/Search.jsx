@@ -1,50 +1,44 @@
-import { Component } from "react";
+import { useState } from "react";
 import { AddSelection } from "./AddSelection";
 
-class Search extends Component {
-  state = {
-    search: '',
-    type: 'all'
-  }
+const Search = (props) => {
+  const { updateFilmList } = props;
 
-  handleKey = (event) => {
+  const [search, setSearch] = useState('');
+  const [type, setType] = useState('all');
+
+  const handleKey = (event) => {
     if (event.key === 'Enter') {
-      this.props.cb(this.state.search, this.state.type);
+      updateFilmList(search, type);
     }
   }
 
-  handleType = (event) => {
-    console.log(`search ${event.target.value}`);
-    this.setState(
-      () => ({type: event.target.value}),
-      () => (this.props.cb(this.state.search, this.state.type))
-    );
+  const handleType = (event) => {
+    setType(event.target.value);
+    updateFilmList(search, event.target.value);
   }
 
-  render() {
-    const {search, type} = this.state;
-    return <div className="row search">
-      <div className="col s12">
-        <div className="input-field">
-          <input 
-            className="validate" 
-            placeholder="search" 
-            type="search"
-            value={search}
-            onChange={(e) => this.setState({search: e.target.value})}
-            onKeyDown={this.handleKey}
-          />
-          <button 
-            className="btn btn-search purple darken-4"
-            onClick={() => this.props.cb(search, type)}
-          >
-            Search
-          </button>
-          <AddSelection type={type} cb={this.handleType}/>
-        </div>
+  return <div className="row search">
+    <div className="col s12">
+      <div className="input-field">
+        <input
+          className="validate"
+          placeholder="search"
+          type="search"
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+          onKeyDown={handleKey}
+        />
+        <button
+          className="btn btn-search purple darken-4"
+          onClick={() => updateFilmList(search, type)}
+        >
+          Search
+        </button>
+        <AddSelection type={type} cb={handleType} />
       </div>
     </div>
-  }
+  </div>
 }
 
 export { Search }

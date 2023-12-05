@@ -6,10 +6,10 @@ import { NotFound } from "../components/NotFound";
 
 class Main extends Component {
   render() {
-    const { cb, movies, isLoading } = this.props;
+    const { updateFilmList, movies, isLoading } = this.props;
 
     return <main className="container content">
-      <Search cb={cb}/>
+      <Search updateFilmList={updateFilmList}/>
       {
         movies.length ? (
           <Movies movies={movies} />
