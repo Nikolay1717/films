@@ -2,20 +2,21 @@ import { useState } from "react";
 import { AddSelection } from "./AddSelection";
 
 const Search = (props) => {
-  const { updateFilmList } = props;
+  const { setSearch } = props;
 
-  const [search, setSearch] = useState('');
-  const [type, setType] = useState('all');
+  const [searchText, setSearchText] = useState('');
+  const [searchType, setSearchType] = useState('all');
 
   const handleKey = (event) => {
     if (event.key === 'Enter') {
-      updateFilmList(search, type);
+      setSearch(searchText, searchType);
+      // console.log(searchText, searchType);
     }
   }
 
   const handleType = (event) => {
-    setType(event.target.value);
-    updateFilmList(search, event.target.value);
+    setSearchType(event.target.value);
+    setSearch(searchText, event.target.value);
   }
 
   return <div className="row search">
@@ -25,17 +26,17 @@ const Search = (props) => {
           className="validate"
           placeholder="search"
           type="search"
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
+          value={searchText}
+          onChange={(e) => setSearchText(e.target.value)}
           onKeyDown={handleKey}
         />
         <button
           className="btn btn-search purple darken-4"
-          onClick={() => updateFilmList(search, type)}
+          onClick={() => setSearch(searchText, searchType)}
         >
           Search
         </button>
-        <AddSelection type={type} cb={handleType} />
+        <AddSelection type={searchType} cb={handleType} />
       </div>
     </div>
   </div>

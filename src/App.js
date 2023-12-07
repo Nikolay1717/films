@@ -1,56 +1,53 @@
 import { Header } from './layout/Hader';
 import { Footer } from './layout/Footer';
 import { Main } from './layout/Main';
-import React from 'react';
+import { useState, useEffect } from 'react';
 
 const API_KEY = process.env.REACT_APP_API_KEY;
 
-export default class App extends React.Component {
+function App() {
 
-  state = {
-    movies: [],
-    isLoading: true
+  const [movies, setMovies] = useState([]);
+  const [isLoading, setLoading] = useState(true);
+  const [searchText, setSearchText] = useState('matrix');
+  const [searchType, setSearchType] = useState('all');
+
+  const setSearch = (text, type) => {
+    setSearchText(text);
+    setSearchType(type);
   }
 
-  componentDidMount() {
-    this.updateFilmList('matrix', 'all');
-  }
-
-  updateFilmList = (searchText, searchType) => {
-    this.setState({ isLoading: true });
+  useEffect(() => {
+    setLoading(true);
     let resource = `https://www.omdbapi.com/?apikey=${API_KEY}&s=${searchText}`;
-    if (searchType && searchType !=='all') {
+    if (searchType !== 'all') {
       resource = resource + `&type=${searchType}`;
     }
-    if (searchText) {
-      fetch(resource)
-        .then(res => res.json())
-        .then((data) => {
-          if (data.Response === "True") {
-            this.setState({ movies: data.Search, isLoading: false });
-          } else {
-            this.setState({ movies: [], isLoading: false })
-          };
-        }
-        )
-        .catch((err) => {
-          console.error(err);
-          this.setState({ movies: [], isLoading: false });
-        });
-    } else {
-      this.setState({ movies: [], isLoading: false })
-    }
-  }
+    fetch(resource)
+      .then(res => res.json())
+      .then((data) => {
+        if (data.Response === "True") {
+          setMovies(data.Search);
+        } else {
+          setMovies([]);
+        };
+      })
+      .catch((err) => {
+        console.error(err);
+        setMovies([]);
+      });
+    setLoading(false);
+  }, [searchText, searchType]);
 
-  render() {
-    return <>
-      <Header />
-      <Main
-        movies={this.state.movies}
-        updateFilmList={this.updateFilmList}
-        isLoading={this.state.isLoading}
-      />
-      <Footer />
-    </>
-  }
+  return <>
+    <Header />
+    <Main
+      movies={movies}
+      setSearch={setSearch}
+      isLoading={isLoading}
+    />
+    <Footer />
+  </>
 }
+
+export default App;
